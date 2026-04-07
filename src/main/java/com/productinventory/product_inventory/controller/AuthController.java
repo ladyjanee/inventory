@@ -44,28 +44,27 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        return authenticate(authRequest.getUsername(), authRequest.getPassword());
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> loginGet(@RequestParam String username, @RequestParam String password) {
+        return authenticate(username, password);
+    }
+
+    private ResponseEntity<?> authenticate(String username, String password) {
         try {
-            // Step 1: Authenticate user credentials
-            // Create authentication token with provided username and password
-            // AuthenticationManager validates credentials against user store
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    authRequest.getUsername(),
-                    authRequest.getPassword()
-                )
+                new UsernamePasswordAuthenticationToken(username, password)
             );
 
             // Step 2: Extract user details from successful authentication
-            // Get the authenticated user's details from the authentication object
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
             // Step 3: Generate JWT token
-            // Create a JWT token containing the username as the subject
-            // Token will be valid for the configured expiration time (24 hours)
             String token = jwtUtil.generateToken(userDetails.getUsername());
 
             // Step 4: Return successful authentication response
-            // Wrap the token in AuthResponse DTO and return with 200 OK status
             return ResponseEntity.ok(new AuthResponse(token));
 
         } catch (Exception e) {

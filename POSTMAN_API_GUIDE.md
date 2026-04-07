@@ -38,7 +38,7 @@ cd c:\Users\Lady Jane\Desktop\lala_product_inventory
 .\mvnw.cmd spring-boot:run
 ```
 
-The application will start on **http://localhost:8080**
+The application will start on **http://localhost:8081**
 
 ### 3. **Import Collections into Postman**
 - Open Postman
@@ -69,7 +69,7 @@ OR
 **Request:**
 ```
 Method: POST
-URL: http://localhost:8080/auth/login
+URL: http://localhost:8081/auth/login
 Content-Type: application/json
 ```
 
@@ -95,7 +95,7 @@ Content-Type: application/json
 
 **Postman Setup:**
 1. Set **Request** type to `POST`
-2. Enter URL: `http://localhost:8080/auth/login`
+2. Enter URL: `http://localhost:8081/auth/login`
 3. Go to **Headers** tab, add:
    - `Content-Type: application/json`
 4. Go to **Body** tab, select `raw` → `JSON`, paste the request body
@@ -119,7 +119,7 @@ Returns an authenticated user's information. **Requires JWT Token**.
 **Request:**
 ```
 Method: GET
-URL: http://localhost:8080/api/test
+URL: http://localhost:8081/api/test
 Authorization: Bearer <JWT_TOKEN>
 ```
 
@@ -141,7 +141,7 @@ Hello admin, you are authenticated!
 
 **Postman Setup:**
 1. Set **Request** type to `GET`
-2. Enter URL: `http://localhost:8080/api/test`
+2. Enter URL: `http://localhost:8081/api/test`
 3. Go to **Authorization** tab
 4. Select **Type**: `Bearer Token`
 5. Enter **Token**: (Use the variable) `{{token}}`
@@ -151,13 +151,49 @@ Hello admin, you are authenticated!
 
 ### 3. Product Management Endpoints
 
+#### **API: GET /api/products**
+Retrieves all products and supports optional search filters.
+
+**Request:**
+```
+Method: GET
+URL: http://localhost:8081/api/products?name=Jtine&description=araykooo&price=100&quantity=1
+Authorization: Bearer {{token}}
+```
+
+**Response (Success - 200 OK):**
+Returns JSON list of products matching the filters.
+
+> Note: This API endpoint requires a valid JWT token.
+
+#### **API: POST /api/products**
+Creates a new product using JSON.
+
+**Request:**
+```
+Method: POST
+URL: http://localhost:8081/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+```
+
+**Body:**
+```json
+{
+  "name": "New Product",
+  "description": "Product Description",
+  "price": 99.99,
+  "quantity": 10
+}
+```
+
 #### **GET /products**
 Retrieves all products. (No authentication required for web interface)
 
 **Request:**
 ```
 Method: GET
-URL: http://localhost:8080/products
+URL: http://localhost:8081/products
 ```
 
 **Response (Success - 200 OK):**
@@ -169,7 +205,7 @@ Creates a new product via form submission.
 **Request:**
 ```
 Method: POST
-URL: http://localhost:8080/products
+URL: http://localhost:8081/products
 Content-Type: application/x-www-form-urlencoded
 ```
 
@@ -187,7 +223,7 @@ Retrieves details for a specific product.
 **Request:**
 ```
 Method: GET
-URL: http://localhost:8080/products/1
+URL: http://localhost:8081/products/1
 ```
 
 #### **PUT /products/{id}**
@@ -196,7 +232,7 @@ Updates an existing product.
 **Request:**
 ```
 Method: PUT
-URL: http://localhost:8080/products/1
+URL: http://localhost:8081/products/1
 Content-Type: application/x-www-form-urlencoded
 ```
 
@@ -214,7 +250,7 @@ Deletes a product.
 **Request:**
 ```
 Method: DELETE
-URL: http://localhost:8080/products/1
+URL: http://localhost:8081/products/1
 ```
 
 ---
@@ -261,7 +297,7 @@ Once a token expires (24 hours), you must:
 
 #### Request 1: User Login
 ```
-POST http://localhost:8080/auth/login
+POST http://localhost:8081/auth/login
 Content-Type: application/json
 
 {
@@ -282,7 +318,7 @@ if (pm.response.code === 200) {
 
 #### Request 2: Access Protected Endpoint
 ```
-GET http://localhost:8080/api/test
+GET http://localhost:8081/api/test
 Authorization: Bearer {{token}}
 ```
 
@@ -290,14 +326,14 @@ Authorization: Bearer {{token}}
 
 #### Request 3: Get All Products
 ```
-GET http://localhost:8080/products
+GET http://localhost:8081/products
 ```
 
 ---
 
 #### Request 4: Create Product
 ```
-POST http://localhost:8080/products
+POST http://localhost:8081/products
 Content-Type: application/x-www-form-urlencoded
 
 name=Sample Product&description=A test product&price=49.99&quantity=20
@@ -307,14 +343,14 @@ name=Sample Product&description=A test product&price=49.99&quantity=20
 
 #### Request 5: Get Product by ID
 ```
-GET http://localhost:8080/products/1
+GET http://localhost:8081/products/1
 ```
 
 ---
 
 #### Request 6: Update Product
 ```
-PUT http://localhost:8080/products/1
+PUT http://localhost:8081/products/1
 Content-Type: application/x-www-form-urlencoded
 
 name=Updated Product&description=Updated description&price=59.99&quantity=25
@@ -324,7 +360,7 @@ name=Updated Product&description=Updated description&price=59.99&quantity=25
 
 #### Request 7: Delete Product
 ```
-DELETE http://localhost:8080/products/1
+DELETE http://localhost:8081/products/1
 ```
 
 ---
