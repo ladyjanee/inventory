@@ -367,3 +367,40 @@ Hibernate:
 2026-04-07T12:28:05.383+08:00  WARN 24540 --- [product_inventory] [nio-8081-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23502, SQLState: 23502
 2026-04-07T12:28:05.384+08:00 ERROR 24540 --- [product_inventory] [nio-8081-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : NULL not allowed for column "CREATED_AT"; SQL statement:
 insert into products (created_at,description,name,price,quantity,id) values (?,?,?,?,?,default) [23502-224]
+2026-04-07T12:33:50.661+08:00 DEBUG 24540 --- [product_inventory] [nio-8081-exec-2] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2026-04-07T12:33:56.280+08:00 DEBUG 24540 --- [product_inventory] [nio-8081-exec-2] org.hibernate.SQL                        : 
+    insert 
+    into
+        products
+        (created_at, description, name, price, quantity, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        products
+        (created_at, description, name, price, quantity, id) 
+    values
+        (?, ?, ?, ?, ?, default)
+2026-04-07T12:33:56.866+08:00  WARN 24540 --- [product_inventory] [nio-8081-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23502, SQLState: 23502
+2026-04-07T12:33:56.989+08:00 ERROR 24540 --- [product_inventory] [nio-8081-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : NULL not allowed for column "CREATED_AT"; SQL statement:
+insert into products (created_at,description,name,price,quantity,id) values (?,?,?,?,?,default) [23502-224]
+2026-04-07T12:36:27.433+08:00  WARN 24540 --- [product_inventory] [nio-8081-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-04-07T12:37:41.263+08:00  WARN 24540 --- [product_inventory] [nio-8081-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
