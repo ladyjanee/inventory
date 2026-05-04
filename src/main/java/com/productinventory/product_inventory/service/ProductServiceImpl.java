@@ -79,15 +79,14 @@ public class ProductServiceImpl implements ProductService {
         }
 
         // Step 2: Create new Product entity
-        // Initialize a new Product instance to hold the data
         Product product = new Product();
 
         // Step 3: Map data from request to entity
-        // Transfer validated data from the DTO to the entity fields
         product.setName(request.getName());
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity());
+        product.setCreatedAt(java.time.LocalDateTime.now());
 
         // Step 4: Persist the entity
         // Save the new product to the database and return the saved instance
